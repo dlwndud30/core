@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Autowired  //생성자 주입 : 생성자가 1개일 때는 @Autowired 생략 가능
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

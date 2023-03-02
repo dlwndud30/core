@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -42,12 +43,12 @@ public class SingletonWithPrototypeTest1 {
     @Component
     static class ClientBean{
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider; //ObjectFactory로 바꿔도 됨
+        private Provider<PrototypeBean> prototypeBeanProvider; //ObjectFactory로 바꿔도 됨
         //ObjectProvider는 스프링이 자동으로 만들어서 주입해줌
         public int logic(){
             //getObject()을 하면 이때 스프링 컨테이너에서 PrototypeBean을 찾아서 반환해줌 -> ac한테 직접 찾는게 아니라 찾아주는 기능만 제공해줌
             //스츠링 컨테이너 조회하는데 직접 하는게 아니라 대신해주는 대리자 역할
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
